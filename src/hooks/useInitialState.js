@@ -1,18 +1,14 @@
-import {useState} from 'react';
+import { useState } from 'react'
 
 const initialState = {
-  products: [],
+  error: null,
+  loading: false
 }
 
 const useInitialState = () => {
-  const [state, setState] = useState(initialState);
+  const [state, setState] = useState(initialState)
 
-  const products = (payload) => {
-    setState({
-      ...state,
-      products: [payload]
-    })
-  }
+  // Reset state
 }
 
-export default useInitialState;
+export default useInitialState
