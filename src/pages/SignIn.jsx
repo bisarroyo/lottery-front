@@ -1,23 +1,26 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { signin, authenticate, isAuthenticated } from '../Api/apiCore'
+import React, { useEffect, useContext } from 'react'
+import { useNavigate, Link } from 'react-router-dom'
+import { signin, authenticate, isAuthenticated } from '@Api'
+import AppContext from '@context/AppContext'
 
 const SignIn = () => {
-  const [values, setValues] = useState({
-    email: '',
-    password: '',
-    error: '',
-    loading: false,
-    redirectToReferrer: false
-  })
-  const { email, password, error, loading, redirectToReferrer } = values
+  const {
+    userData,
+    setUser,
+    setError,
+    setLoading,
+    setRedirect
+  } = useContext(AppContext)
+
+  const { email, password, error, loading, redirectToReferrer } = userData
+
   const { user } = isAuthenticated()
 
+  // this function redirect the user if is logged in, if the user is is admin it redirect to the admin page
   const navigate = useNavigate()
-
-  const redirectUser = () => {
+  useEffect(() => {
     if (redirectToReferrer) {
-      if (user && user.role === 1) {
+      if (user && user.role === 'admin') {
         navigate('/admin/dashboard')
       } else {
         navigate('/')
@@ -26,23 +29,24 @@ const SignIn = () => {
     if (isAuthenticated()) {
       navigate('/')
     }
-  }
+  }, [redirectToReferrer])
 
   const handleChange = (event) => {
-    setValues({ ...values, error: false, [event.target.name]: event.target.value })
+    setUser({ ...userData, [event.target.name]: event.target.value })
   }
 
   const clickSubmit = (e) => {
     e.preventDefault()
-    setValues({ ...values, error: '', loading: true })
+    setLoading(true)
     signin({ email, password })
       .then(data => {
         if (data.error) {
-          setValues({ ...values, error: data.error, loading: false })
+          setError(data.error)
         } else {
           authenticate(
             data, () => {
-              setValues({ ...values, error: '', redirectToReferrer: true })
+              setRedirect(true)
+              setLoading(false)
             }
           )
         }
@@ -83,14 +87,13 @@ const SignIn = () => {
           onClick={clickSubmit}
           disabled={loading}
         >
-          {loading && (
-            <span>Cargando</span>
-          )}
-          <span>Sign In</span>
+          {loading ? (<span>Loading...</span>) : (<span>Iniciar Sesón</span>)}
         </button>
+        <Link to='/recovery'>
+          Olvidé mi contraseña
+        </Link>
         <span className='text-danger'>{error}</span>
       </form>
-      {redirectUser()}
     </>
   )
 }

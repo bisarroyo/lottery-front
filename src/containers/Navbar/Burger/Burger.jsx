@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import StyledBurger from './Styles';
-import RightNav from '../RigthNav/RigthNav';
+import React, { useState } from 'react'
+import StyledBurger from './Styles'
+import RightNav from '../RigthNav/RigthNav'
 
 const Burger = () => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false)
   return (
     <>
       <StyledBurger open={open} onClick={() => setOpen(!open)}>
@@ -13,7 +13,7 @@ const Burger = () => {
       </StyledBurger>
       <RightNav open={open} />
     </>
-  );
-};
+  )
+}
 
-export default Burger;
+export default Burger

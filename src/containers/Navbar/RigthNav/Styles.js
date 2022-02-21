@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 const Ul = styled.ul`
   list-style: none;
@@ -7,6 +7,9 @@ const Ul = styled.ul`
   li {
     padding: 10px 10px;
     font-size: 1.1rem;
+    .link {
+      text-decoration: none;
+    }
   }
   @media (max-width: 768px) {
     z-index: 15;
@@ -20,10 +23,10 @@ const Ul = styled.ul`
     width: 300px;
     padding-top: 3.5rem;
     transition: transform 0.3s ease-in-out;
-    li {
+    .link {
       color: #fff;
     }
   }
-`;
+`
 
-export default Ul;
+export default Ul

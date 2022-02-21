@@ -1,31 +1,29 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { signup, authenticate, logout } from '../Api/apiCore'
+import { logout, changePassword } from '@Api'
 
-const SingUp = () => {
+const ChangePassword = () => {
   const [values, setValues] = useState({
-    name: '',
-    email: '',
     password: '',
     password2: '',
     error: '',
     loading: false,
-    success: false
+    success: false,
+    token: ''
   })
 
-  const { name, email, password, password2, error, success, loading } = values
+  const { password, password2, error, loading, success, token } = values
 
   const navigate = useNavigate()
-
-  const handleChange = (event) => {
-    setValues({ ...values, error: false, [event.target.name]: event.target.value })
-  }
-
   useEffect(() => {
     if (success) {
       navigate('/singin')
     }
   }, [success])
+
+  const handleChange = (event) => {
+    setValues({ ...values, error: false, [event.target.name]: event.target.value })
+  }
 
   const clickSubmit = (e) => {
     e.preventDefault()
@@ -34,58 +32,24 @@ const SingUp = () => {
       setValues({ ...values, error: 'Contraseñas no coinciden', success: false })
     } else {
       setValues({ ...values, error: '', loading: true })
-      signup({ name, email, password })
+      changePassword({ token, password })
         .then(data => {
           if (data.error) {
             setValues({ ...values, error: data.error, success: false })
           } else {
             setValues({ ...values, success: true })
-            authenticate(data, () => {
-              setValues({
-                ...values,
-                name: '',
-                email: '',
-                password: '',
-                password2: '',
-                error: '',
-                loading: false,
-                success: true
-              })
-            })
           }
         })
     }
   }
 
+  console.log(window.location.href.split('/')[4])
+  const tokenFromUrl = window.location.href.split('/')[4]
+  setValues({ ...values, token: tokenFromUrl })
+
   return (
     <>
       <form className='signin-box'>
-        <div className='form-group'>
-          <label htmlFor='name'>Nombre</label>
-          <input
-            type='name'
-            value={name}
-            name='name'
-            id='name'
-            className='form-control'
-            placeholder='name'
-            autoComplete='on'
-            onChange={handleChange}
-          />
-        </div>
-        <div className='form-group'>
-          <label htmlFor='email'>Correo electrónico</label>
-          <input
-            type='email'
-            value={email}
-            name='email'
-            id='email'
-            className='form-control'
-            placeholder='Correo electrónico'
-            autoComplete='on'
-            onChange={handleChange}
-          />
-        </div>
         <div className='form-group'>
           <label htmlFor='password'>Contraseña</label>
           <input
@@ -117,7 +81,7 @@ const SingUp = () => {
           onClick={clickSubmit}
           disabled={loading}
         >
-          {loading ? (<span>Loading...</span>) : (<span>Registrarme</span>)}
+          {loading ? (<span>Loading...</span>) : (<span>Cambiar contraseña</span>)}
         </button>
         <span className='text-danger'>{error}</span>
       </form>
@@ -125,4 +89,4 @@ const SingUp = () => {
   )
 }
 
-export default SingUp
+export default ChangePassword

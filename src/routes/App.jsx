@@ -7,6 +7,9 @@ import Layout from '@containers/Layout'
 import Home from '@pages/Home'
 import SingUp from '@pages/SingUp'
 import SignIn from '@pages/SignIn'
+import LogOut from '@pages/LogOut'
+import Recovery from '@pages/Recovery'
+import  ChangePassword from '@pages/ChangePassword'
 
 const App = () => {
   const InitialState = useInitialState()
@@ -18,6 +21,9 @@ const App = () => {
             <Route path='/' element={<Home />} />
             <Route path='/singup' element={<SingUp />} />
             <Route path='/signin' element={<SignIn />} />
+            <Route path='/logout' element={<LogOut />} />
+            <Route path='/recovery' element={<Recovery />} />
+            <Route path='/recovery?token=:token' element={<ChangePassword />} />
           </Routes>
         </Layout>
       </BrowserRouter>
