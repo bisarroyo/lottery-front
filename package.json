@@ -12,6 +12,9 @@
   "author": "Bismark Arroyo <bis.arroyo@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "@emotion/react": "^11.8.1",
+    "@emotion/styled": "^11.8.1",
+    "@mui/material": "^5.4.3",
     "axios": "^0.25.0",
     "dotenv": "^16.0.0",
     "react": "^17.0.2",
@@ -50,6 +53,8 @@
     ]
   },
   "react-dotenv": {
-    "whitelist": ["API_URL"]
+    "whitelist": [
+      "API_URL"
+    ]
   }
 }

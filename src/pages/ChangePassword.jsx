@@ -17,7 +17,7 @@ const ChangePassword = () => {
   const navigate = useNavigate()
   useEffect(() => {
     if (success) {
-      navigate('/singin')
+      navigate('/signin')
     }
   }, [success])
 

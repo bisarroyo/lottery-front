@@ -10,7 +10,7 @@ const RightNav = ({ open }) => {
         <Link to='/' className='link'>Inicio</Link>
       </li>
       <li>
-        <Link to='/singup' className='link'>Registrarme</Link>
+        <Link to='/signup' className='link'>Registrarme</Link>
       </li>
       <li>
         <Link to='/signin' className='link'>Iniciar Sesión</Link>

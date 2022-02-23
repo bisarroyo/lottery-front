@@ -5,11 +5,11 @@ import AppContext from '../context/AppContext'
 import useInitialState from '../hooks/useInitialState'
 import Layout from '@containers/Layout'
 import Home from '@pages/Home'
-import SingUp from '@pages/SingUp'
+import SignUp from '@pages/SignUp'
 import SignIn from '@pages/SignIn'
 import LogOut from '@pages/LogOut'
 import Recovery from '@pages/Recovery'
-import  ChangePassword from '@pages/ChangePassword'
+import ChangePassword from '@pages/ChangePassword'
 
 const App = () => {
   const InitialState = useInitialState()
@@ -19,7 +19,7 @@ const App = () => {
         <Layout>
           <Routes>
             <Route path='/' element={<Home />} />
-            <Route path='/singup' element={<SingUp />} />
+            <Route path='/signup' element={<SignUp />} />
             <Route path='/signin' element={<SignIn />} />
             <Route path='/logout' element={<LogOut />} />
             <Route path='/recovery' element={<Recovery />} />
