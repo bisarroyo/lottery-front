@@ -18,6 +18,9 @@ const RightNav = ({ open }) => {
       <li>
         <Link to='/logout' className='link'>Cerrar Sesión</Link>
       </li>
+      <li>
+        <Link to='/games' className='link'>Games</Link>
+      </li>
     </Ul>
   )
 }

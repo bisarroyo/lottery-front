@@ -5,10 +5,9 @@ const ButtonStyle = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 100%;
   padding: 0px;
-  margin: 15px 0px;
+  margin: 2px 2px;
+  max-width: 300px
 `
 
 export default ButtonStyle

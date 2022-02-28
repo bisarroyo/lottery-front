@@ -3,18 +3,18 @@ import TextField from '@mui/material/TextField'
 import InputStyle from '@styles/InputStyle'
 
 const Input = (props) => {
-  const { label, type, placeholder, handleValue, handleChange } = props
+  const { label, name, type, placeholder, value, handleChange } = props
   return (
     <InputStyle>
       <TextField
         label={label}
         variant='standard'
-        name={type}
+        name={name}
         type={type}
         className='form-control'
         placeholder={placeholder}
         autoComplete='off'
-        value={handleValue}
+        value={value}
         onChange={handleChange}
       />
     </InputStyle>

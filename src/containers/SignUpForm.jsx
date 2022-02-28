@@ -64,36 +64,40 @@ const SignUpForm = () => {
       <div className='form-group'>
         <Input
           label='Nombre'
+          name='name'
           type='text'
           placeholder='Juan'
-          handleValue={name}
+          value={name}
           handleChange={handleChange}
         />
         <Input
           label='Correo electrónico'
+          name='email'
           type='email'
           placeholder='you@domain.com'
-          handleValue={email}
+          value={email}
           handleChange={handleChange}
         />
         <Input
           label='Contraseña'
+          name='password'
           type='password'
           placeholder='********'
-          handleValue={password}
+          value={password}
           handleChange={handleChange}
         />
         <Input
           label='Confirmar contraseña'
+          name='password2'
           type='password'
           placeholder='********'
-          handleValue={password2}
+          value={password2}
           handleChange={handleChange}
         />
         <Button
-          clickSubmit={clickSubmit}
+          handleClick={clickSubmit}
           text='Registrarme'
-          loading={loading}
+          disabled={loading}
         />
         <span className='text-danger'>{error}</span>
       </div>

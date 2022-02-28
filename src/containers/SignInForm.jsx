@@ -5,6 +5,7 @@ import AppContext from '@context/AppContext'
 import Input from '@components/Input'
 import Button from '@components/Button'
 import FormStyle from '@styles/FormStyle'
+import Loading from '@components/Loading'
 
 const SignInForm = () => {
   const {
@@ -43,8 +44,11 @@ const SignInForm = () => {
     setLoading(true)
     signin({ email, password })
       .then(data => {
+        console.log(data)
         if (data.error) {
           setError(data.error)
+          setLoading(false)
+          console.log(data.error)
         } else {
           authenticate(
             data, () => {
@@ -60,28 +64,31 @@ const SignInForm = () => {
       <div className='form-group'>
         <Input
           label='Correo electrónico'
+          name='email'
           type='email'
           placeholder='you@domain.com'
-          handleValue={email}
+          value={email}
           handleChange={handleChange}
         />
         <Input
           label='Contraseña'
+          name='password'
           type='password'
           placeholder='********'
-          handleValue={password}
+          value={password}
           handleChange={handleChange}
         />
         <Button
-          clickSubmit={clickSubmit}
+          handleClick={clickSubmit}
           text='Iniciar sesión'
-          loading={loading}
+          disabled={loading}
         />
         <Link to='/recovery' className='link'>
           Olvidé mi contraseña
         </Link>
         <span className='text-danger'>{error}</span>
       </div>
+      <Loading loading={loading} />
     </FormStyle>
   )
 }

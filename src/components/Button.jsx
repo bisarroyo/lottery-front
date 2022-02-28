@@ -3,16 +3,16 @@ import Button from '@mui/material/Button'
 import ButtonStyle from '@styles/ButtonStyle'
 
 const ButtonPrimary = (props) => {
-  const { clickSubmit, loading, text } = props
+  const { handleClick, disabled, text } = props
   return (
     <ButtonStyle>
       <Button
         variant='contained'
         className='btn btn-primary'
-        onClick={clickSubmit}
-        disabled={loading}
+        onClick={handleClick}
+        disabled={disabled}
       >
-        {loading ? (<span>Loading...</span>) : (<span>{text}</span>)}
+        <span>{text}</span>
       </Button>
     </ButtonStyle>
   )
