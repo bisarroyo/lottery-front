@@ -45,10 +45,10 @@ const SignInForm = () => {
     signin({ email, password })
       .then(data => {
         console.log(data)
-        if (data.error) {
-          setError(data.error)
+        if (data.errors) {
+          console.log(data.errors)
+          setError(data.errors)
           setLoading(false)
-          console.log(data.error)
         } else {
           authenticate(
             data, () => {
@@ -60,36 +60,37 @@ const SignInForm = () => {
       })
   }
   return (
-    <FormStyle>
-      <div className='form-group'>
-        <Input
-          label='Correo electrónico'
-          name='email'
-          type='email'
-          placeholder='you@domain.com'
-          value={email}
-          handleChange={handleChange}
-        />
-        <Input
-          label='Contraseña'
-          name='password'
-          type='password'
-          placeholder='********'
-          value={password}
-          handleChange={handleChange}
-        />
-        <Button
-          handleClick={clickSubmit}
-          text='Iniciar sesión'
-          disabled={loading}
-        />
-        <Link to='/recovery' className='link'>
-          Olvidé mi contraseña
-        </Link>
-        <span className='text-danger'>{error}</span>
-      </div>
-      <Loading loading={loading} />
-    </FormStyle>
+    <>
+      <FormStyle>
+        <div className='form-group'>
+          <Input
+            label='Correo electrónico'
+            name='email'
+            type='email'
+            placeholder='you@domain.com'
+            value={email}
+            handleChange={handleChange}
+          />
+          <Input
+            label='Contraseña'
+            name='password'
+            type='password'
+            placeholder='********'
+            value={password}
+            handleChange={handleChange}
+          />
+          <Button
+            handleClick={clickSubmit}
+            text='Iniciar sesión'
+            disabled={loading}
+          />
+          <Link to='/recovery' className='link'>
+            Olvidé mi contraseña
+          </Link>
+        </div>
+        <Loading loading={loading} />
+      </FormStyle>
+    </>
   )
 }
 

@@ -17,7 +17,11 @@ export const signin = (user) => {
       return res.data
     })
     .catch(err => {
-      console.log(err)
+      const { status, data } = err.response
+      console.log(status, data)
+      if (status === 401) {
+        return { errors: data.errors }
+      }
     })
 }
 
@@ -107,6 +111,7 @@ export const changePassword = (data) => {
 export const authenticate = (data, next) => {
   if (typeof window !== 'undefined') {
     window.localStorage.setItem('jwt', JSON.stringify(data))
+    document.cookie = `jwt=${data}`
     next()
   }
 }
