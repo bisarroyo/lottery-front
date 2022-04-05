@@ -1,59 +1,58 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
+import AppContext from '@context/AppContext'
 import { signup, authenticate, logout } from '../Api/apiCore'
 import Input from '@components/Input'
 import Button from '@components/Button'
 import FormStyle from '@styles/FormStyle'
 
 const SignUpForm = () => {
-  const [values, setValues] = useState({
-    name: '',
-    email: '',
-    password: '',
-    password2: '',
-    error: '',
-    loading: false,
-    success: false
-  })
+  const {
+    userData,
+    setUser,
+    setError,
+    setLoading,
+    setRedirect
+  } = useContext(AppContext)
 
-  const { name, email, password, password2, error, success, loading } = values
+  const {
+    name,
+    email,
+    password,
+    password2,
+    error,
+    loading,
+    redirectToReferrer
+  } = userData
 
   const navigate = useNavigate()
 
   const handleChange = (event) => {
-    setValues({ ...values, error: false, [event.target.name]: event.target.value })
+    setUser({ ...userData, [event.target.name]: event.target.value })
   }
 
   useEffect(() => {
-    if (success) {
+    if (redirectToReferrer) {
       navigate('/singin')
     }
-  }, [success])
+  }, [redirectToReferrer])
 
   const clickSubmit = (e) => {
     e.preventDefault()
     logout()
     if (password !== password2) {
-      setValues({ ...values, error: 'Contraseñas no coinciden', success: false })
+      setError('Contraseñas no coinciden')
     } else {
-      setValues({ ...values, error: '', loading: true })
+      setLoading(true)
       signup({ name, email, password })
         .then(data => {
           if (data.error) {
-            setValues({ ...values, error: data.error, success: false })
+            setError(data.error)
+            setLoading(false)
           } else {
-            setValues({ ...values, success: true })
             authenticate(data, () => {
-              setValues({
-                ...values,
-                name: '',
-                email: '',
-                password: '',
-                password2: '',
-                error: '',
-                loading: false,
-                success: true
-              })
+              setRedirect(true)
+              setLoading(false)
             })
           }
         })

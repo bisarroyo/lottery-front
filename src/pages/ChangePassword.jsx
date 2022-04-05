@@ -1,51 +1,64 @@
-import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useEffect, useContext } from 'react'
+import AppContext from '@context/AppContext'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { logout, changePassword } from '@Api'
 
 const ChangePassword = () => {
-  const [values, setValues] = useState({
-    password: '',
-    password2: '',
-    error: '',
-    loading: false,
-    success: false,
-    token: ''
-  })
+  const {
+    userData,
+    setUser,
+    setError,
+    setLoading,
+    setRedirect,
+    setToken
+  } = useContext(AppContext)
 
-  const { password, password2, error, loading, success, token } = values
+  const {
+    password,
+    password2,
+    error,
+    loading,
+    redirectToReferrer,
+    token
+  } = userData
+
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  console.log(searchParams)
+
+  console.log(window.location.href.split('/')[4])
+  const tokenFromUrl = window.location.href.split('/')[4]
+  setToken(tokenFromUrl)
 
   const navigate = useNavigate()
   useEffect(() => {
-    if (success) {
+    if (redirectToReferrer) {
       navigate('/signin')
     }
-  }, [success])
+  }, [redirectToReferrer])
 
   const handleChange = (event) => {
-    setValues({ ...values, error: false, [event.target.name]: event.target.value })
+    setUser({ ...userData, [event.target.name]: event.target.value })
   }
 
   const clickSubmit = (e) => {
     e.preventDefault()
     logout()
     if (password !== password2) {
-      setValues({ ...values, error: 'Contraseñas no coinciden', success: false })
+      setError('Contraseñas no coinciden')
     } else {
-      setValues({ ...values, error: '', loading: true })
+      setLoading(true)
       changePassword({ token, password })
         .then(data => {
           if (data.error) {
-            setValues({ ...values, error: data.error, success: false })
+            setError(data.error)
+            setLoading(false)
           } else {
-            setValues({ ...values, success: true })
+            setRedirect(true)
           }
         })
     }
   }
-
-  console.log(window.location.href.split('/')[4])
-  const tokenFromUrl = window.location.href.split('/')[4]
-  setValues({ ...values, token: tokenFromUrl })
 
   return (
     <>

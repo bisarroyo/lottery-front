@@ -16,7 +16,7 @@ const SignInForm = () => {
     setRedirect
   } = useContext(AppContext)
 
-  const { email, password, error, loading, redirectToReferrer } = userData
+  const { email, password, password2, loading, redirectToReferrer } = userData
 
   const { user } = isAuthenticated()
 
@@ -42,22 +42,26 @@ const SignInForm = () => {
   const clickSubmit = (e) => {
     e.preventDefault()
     setLoading(true)
-    signin({ email, password })
-      .then(data => {
-        console.log(data)
-        if (data.errors) {
-          console.log(data.errors)
-          setError(data.errors)
-          setLoading(false)
-        } else {
-          authenticate(
-            data, () => {
-              setRedirect(true)
-              setLoading(false)
-            }
-          )
-        }
-      })
+    if (password !== password2) {
+      setError('Contraseñas no coinciden')
+    } else {
+      signin({ email, password })
+        .then(data => {
+          console.log(data)
+          if (data.errors) {
+            console.log(data.errors)
+            setError(data.errors)
+            setLoading(false)
+          } else {
+            authenticate(
+              data, () => {
+                setRedirect(true)
+                setLoading(false)
+              }
+            )
+          }
+        })
+    }
   }
   return (
     <>

@@ -20,17 +20,19 @@ const App = () => {
       <BrowserRouter>
         <Layout>
           <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='/signup' element={<SignUp />} />
-            <Route path='/signin' element={<SignIn />} />
-            <Route path='/logout' element={<LogOut />} />
-            <Route path='/recovery' element={<Recovery />} />
-            <Route path='/recovery?token=:token' element={<ChangePassword />} />
-            <Route path='/games' element={<Games />} />
-            <Route path='/games/one' element={<GameOne />} />
-            <Route path='/games/express' element={<Games />} />
-            <Route path='/games/lotto' element={<Games />} />
-            <Route path='/games/bingo' element={<Games />} />
+            <Route path='' element={<Home />} />
+            <Route path='signup' element={<SignUp />} />
+            <Route path='signin' element={<SignIn />} />
+            <Route path='logout' element={<LogOut />} />
+            <Route path='mail-recovery' element={<Recovery />} />
+            <Route path='recovery?token=' element={<ChangePassword />}>
+              <Route path=':tokenId' element={<ChangePassword />} />
+            </Route>
+            <Route path='games' element={<Games />} />
+            <Route path='games/one' element={<GameOne />} />
+            <Route path='games/express' element={<Games />} />
+            <Route path='games/lotto' element={<Games />} />
+            <Route path='games/bingo' element={<Games />} />
           </Routes>
         </Layout>
       </BrowserRouter>

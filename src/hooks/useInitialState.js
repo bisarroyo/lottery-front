@@ -1,10 +1,13 @@
 import { useState } from 'react'
 
 const initialState = {
-  error: '',
-  loading: false,
+  name: '',
   email: '',
   password: '',
+  password2: '',
+  error: '',
+  loading: false,
+  token: '',
   redirectToReferrer: false
 }
 
@@ -17,13 +20,15 @@ const useInitialState = () => {
     setUserData(initialState)
   }
 
-  // Set user data
+  // set user user data
 
   const setUser = (data) => {
     setUserData({
       ...userData,
+      name: data.name,
       email: data.email,
-      password: data.password
+      password: data.password,
+      password2: data.password2
     })
   }
 
@@ -45,6 +50,15 @@ const useInitialState = () => {
     })
   }
 
+  // set tokendo
+
+  const setToken = (token) => {
+    setUserData({
+      ...userData,
+      token: token
+    })
+  }
+
   // Set redirect
 
   const setRedirect = (redirect) => {
@@ -60,6 +74,7 @@ const useInitialState = () => {
     setUser,
     setError,
     setLoading,
+    setToken,
     setRedirect
   }
 }
